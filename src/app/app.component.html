@@ -1,0 +1,16 @@
+<div class="dragNdDrop">
+  <div class="dropSection">
+    <div class="drop"></div>
+    <div class="drop"></div>
+    <div class="drop"></div>
+    <div class="drop" ></div>
+  </div>
+
+  <div class="dragSection">
+    <div class="drag" appDrag (dragStart)="onDragStart()" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd()">
+
+    </div>
+    <div class="drag" appDropRx (dragStart)="onDragStart()" (dragMove)="onDragMove($event)" (dragEnd)="onDragEnd()">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+.drag{
+    cursor: pointer;
+}
+.dropSection, .dragSection{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+.dropSection > div, .dragSection>div{
+    width: 200px;
+    height: 100px;
+    background-color: gray;
+}
