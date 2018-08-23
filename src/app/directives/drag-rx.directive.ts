@@ -1,11 +1,11 @@
-import { Directive, EventEmitter, HostListener, Output, OnInit } from '@angular/core';
-import { Subject } from '../../node_modules/rxjs';
+import { Directive, EventEmitter, HostListener, Output, OnInit, HostBinding } from '@angular/core';
+import { Subject } from 'rxjs';
 import { switchMap, takeUntil, repeat, take } from 'rxjs/operators';
 
 @Directive({
-  selector: '[appDropRx]'
+  selector: '[appDragRx]'
 })
-export class DropRxDirective implements OnInit {
+export class DragRxDirective implements OnInit {
 
   constructor() { }
   @Output() dragStart = new EventEmitter<PointerEvent>();
@@ -18,8 +18,12 @@ export class DropRxDirective implements OnInit {
 
   private pointerUp = new Subject<PointerEvent>();
 
+  @HostBinding('class.drag') drag = true;
+  @HostBinding('class.dragging') dragging = false;
+
   @HostListener('pointerdown', ['$event'])
   onpointerdown(event: PointerEvent): void {
+
     this.pointerDown.next(event);
   }
   @HostListener('document:pointermove', ['$event'])
@@ -32,18 +36,27 @@ export class DropRxDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    const dragStart$ = this.pointerDown.asObservable();
-    const dragMove$ = this.pointerDown.pipe(
-      switchMap(()=> this.pointerMove),
+    this.pointerDown.asObservable()
+      .subscribe(event => {
+        event.stopPropagation();
+        this.dragging = true;
+        this.dragStart.emit(event)
+      });
+
+    this.pointerDown.pipe(
+      switchMap(() => this.pointerMove),
       takeUntil(this.pointerUp),
       repeat()
-    );
-    
+    ).subscribe(event => this.dragMove.emit(event));
+
     const dragEnd$ = this.pointerDown.pipe(
-      switchMap(()=> this.pointerUp),
+      switchMap(() => this.pointerUp),
       take(1),
       repeat()
-    );
-    dragEnd$.subscribe(()=> console.log("cdscsdc"));
+    ).subscribe(event => {
+      this.dragging = false;
+      this.dragEnd.emit(event);
+    });
+
   }
 }

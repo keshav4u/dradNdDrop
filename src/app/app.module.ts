@@ -1,18 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { DirModuleModule } from './directives/dir-module.module'
 import { AppComponent } from './app.component';
-import { DragDirective } from './drag.directive';
-import { DropRxDirective } from './drop-rx.directive';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    DragDirective,
-    DropRxDirective
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    DirModuleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

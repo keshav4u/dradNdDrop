@@ -1,13 +1,15 @@
-.drag{
-    cursor: pointer;
+.drag {
+  cursor: pointer;
+  padding: 10px;
+  width: 200px;
+  height: 100px;
+  background-color: gray;
 }
-.dropSection, .dragSection{
-    display: flex;
-    align-items: center;
-    justify-content:space-between;
+
+div.dragging {
+  background-color: red;
 }
-.dropSection > div, .dragSection>div{
-    width: 200px;
-    height: 100px;
-    background-color: gray;
+
+.moving:not(.dragging) {
+  transition: transform 300ms ease-in-out;
 }
