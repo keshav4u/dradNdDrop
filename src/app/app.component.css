@@ -1,9 +1,15 @@
 .drag {
   cursor: pointer;
   padding: 10px;
-  width: 200px;
-  height: 100px;
+  width: 100px;
+  height: 41px;
   background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  font-family: sans-serif;
 }
 
 div.dragging {
@@ -12,4 +18,9 @@ div.dragging {
 
 .moving:not(.dragging) {
   transition: transform 300ms ease-in-out;
+}
+
+.area {
+  background-color: aqua;
+  padding: 40px;
 }
